@@ -1,0 +1,176 @@
+🍕 Pizza API
+
+API REST para la gestión de un restaurante de pizzas.
+Permite administrar usuarios, pizzas, órdenes y los ítems de cada orden.
+Se puede probar fácilmente con Postman o integrarse en un frontend.
+
+📌 Tecnologías utilizadas
+
+Node.js
+ + Express
+ → Backend
+
+MySQL
+ gestionado con phpMyAdmin
+ → Base de datos
+
+bcryptjs
+ → Hash de contraseñas
+
+Postman
+ → Pruebas de endpoints
+
+⚙️ Instalación y ejecución
+
+Clonar el repositorio o crear la carpeta del proyecto:
+
+git clone https://github.com/usuario/pizza-api.git
+cd pizza-api
+
+
+Instalar dependencias:
+
+npm install
+
+
+Configurar conexión a la base de datos en db.js:
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',      // tu usuario de MySQL/phpMyAdmin
+  password: '',      // tu contraseña de MySQL (en XAMPP suele estar vacía)
+  database: 'pizza_db'
+});
+
+
+Iniciar servidor:
+
+node server.js
+
+
+Acceder a la API:
+
+http://localhost:3000/api
+
+📂 Estructura del proyecto
+pizza-api/
+ ┣ 📂 routes
+ ┃ ┣ pizzas.js
+ ┃ ┣ users.js
+ ┃ ┣ orders.js
+ ┃ ┗ orderItems.js
+ ┣ db.js
+ ┣ server.js
+ ┗ package.json
+
+🗂️ Esquema de la base de datos
+
+users (id, name, email, password, phone)
+
+pizzas (id, name, description, price)
+
+orders (id, user_id, date, total)
+
+order_items (id, order_id, pizza_id, quantity, price)
+
+🔗 Endpoints principales
+👤 Usuarios
+
+GET /api/users → listar usuarios
+
+GET /api/users/:id → ver un usuario
+
+POST /api/users → crear usuario (con password hasheada con bcryptjs)
+
+PUT /api/users/:id → actualizar usuario
+
+DELETE /api/users/:id → eliminar usuario
+
+🍕 Pizzas
+
+GET /api/pizzas → listar pizzas
+
+GET /api/pizzas/:id → ver una pizza
+
+POST /api/pizzas → crear pizza
+
+PUT /api/pizzas/:id → actualizar pizza
+
+DELETE /api/pizzas/:id → eliminar pizza
+
+🛒 Órdenes
+
+GET /api/orders → listar órdenes
+
+GET /api/orders/:id → ver orden con sus ítems
+
+POST /api/orders → crear orden (asociada a usuario)
+
+PUT /api/orders/:id → actualizar orden
+
+DELETE /api/orders/:id → eliminar orden
+
+📦 Items de orden
+
+GET /api/order-items → listar ítems
+
+POST /api/order-items → agregar ítem a orden
+
+PUT /api/order-items/:id → actualizar cantidad/precio
+
+DELETE /api/order-items/:id → eliminar ítem
+
+🧑‍💻 Ejemplos de uso (Postman)
+Crear un usuario
+POST http://localhost:3000/api/users
+{
+  "name": "Carlos Ruiz",
+  "email": "carlos@example.com",
+  "password": "123456",
+  "phone": "3012345678"
+}
+
+Crear una pizza
+POST http://localhost:3000/api/pizzas
+{
+  "name": "Hawaiana",
+  "description": "Pizza con jamón y piña",
+  "price": 35000
+}
+
+Crear una orden
+POST http://localhost:3000/api/orders
+{
+  "user_id": 1,
+  "total": 70000
+}
+
+Agregar ítem a la orden
+POST http://localhost:3000/api/order-items
+{
+  "order_id": 1,
+  "pizza_id": 2,
+  "quantity": 2,
+  "price": 35000
+}
+
+🚀 Despliegue
+
+Puedes desplegar la API en servicios como:
+
+Railway
+
+Render
+
+VPS propio o servidor con Node.js y MySQL
+
+📖 Notas
+
+Contraseñas de usuarios están hasheadas con bcryptjs.
+
+No se usa autenticación JWT (API simple).
+
+Ideal como proyecto académico o base para un sistema de pedidos de pizzas.
+
+👤 Autor
+Proyecto desarrollado por Luis David Gil
